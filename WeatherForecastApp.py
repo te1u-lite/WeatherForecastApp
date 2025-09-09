@@ -1,5 +1,8 @@
 import os
 import requests
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # APIキー
 API_KEY = os.getenv("API_KEY")
@@ -13,13 +16,19 @@ lat = 34.69
 lon = 135.1955
 
 # APIのエンドポイント
-url = f"http://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={API_KEY}&units=metric&lang=ja"
+url = f"https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={API_KEY}&units=metric&lang=ja"
 
+# APIリクエスト
 response = requests.get(url)
 data = response.json()
 
 if response.status_code == 200:
-    print(f"{city}の天気: {data['weather'][0]['description']}")
-    print(f"気温: {data['main']['temp']}℃")
+    # 現在の天気
+    current_weather = data["weather"][0]["description"]
+    current_temp = data["main"]["temp"]
+
+    # 今日の気温
+    print(f"現在の{city}の天気: {current_weather}")
+    print(f"現在の気温: {current_temp}℃")
 else:
     print("エラー:", data)
