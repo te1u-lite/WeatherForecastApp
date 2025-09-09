@@ -1,7 +1,11 @@
+import os
 import requests
 
 # APIキー
-API_KEY = "1ed604a220fdd98c96d591c7adb80c80"
+API_KEY = os.getenv("API_KEY")
+
+if not API_KEY:
+    raise ValueError("環境変数 'API_KEY' が設定されていません。")
 
 # 天気を取得したい都市
 city = "神戸市"
