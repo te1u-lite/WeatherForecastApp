@@ -3,13 +3,15 @@ name: Run script
 on: 
   workflow_dispatch: {}
   schedule:
-    - cron: "0 * * * *" #時刻
+    - cron: "0 22 * * *"  # JSTの毎朝7:00（UTCの毎日22:00）
 
 jobs:
   run:
     runs-on: ubuntu-latest
     env:
-      API_KEY: ${{ secrets.API_KEY }}
+      OPENWEATHER_API_KEY: ${{ secrets.OPENWEATHER_API_KEY }}
+      SLACK_TOKEN: ${{ secrets.SLACK_TOKEN }}
+      SLACK_CHANNEL: ${{ secrets.SLACK_CHANNEL }}
 
     steps:
       - uses: actions/checkout@v4
